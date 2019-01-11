@@ -193,13 +193,13 @@ function validate() {
 	if(quiz.questions[currentQuestion].answer == answer){
 		score += 10;
 		// alert1.textContent = "You are right";
-		alert1.innerHTML = "<p>This is Correct</p>";
+		alert1.innerHTML = '<div class="alert alert-success">' + "This is Correct" + "</div>";
 		// score+=10;
 		// alert1.textContent = "";
 		return;
 		} else {
 			// alert2.textContent = "You are wrong";
-			alert1.innerHTML = "<p>This is wrong</p>";
+			alert1.innerHTML = '<div class="alert alert-success">' + "This is wrong" + "</div>";
 			 // score-=5;
 			return;
 		}
