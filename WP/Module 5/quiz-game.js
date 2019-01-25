@@ -124,26 +124,47 @@ var opt1 = document.getElementById('opt1');
 var opt2 = document.getElementById('opt2');
 var opt3 = document.getElementById('opt3');
 var opt4 = document.getElementById('opt4');
-var nextButton = document.getElementById('nextButton');
+var nextButton = document.getElementById('nextbutton');
 var validnatu = document.getElementById('valid');
 var resultCont = document.getElementById('result');
 var alert1 = document.getElementById('detectcor');
 var alert2 = document.getElementById('detectwrg');
 var q;
 function loadQuestion (questionIndex) {
+
 	q = quiz.questions[questionIndex];
-	// document.write(quiz.questions[questionIndex].text);
+	// console.log(questionIndex);
 	questionEl.textContent = (questionIndex + 1) + '. ' + q.text;
 	opt1.textContent = q.choice[0].text;
 	opt2.textContent = q.choice[1].text;
 	opt3.textContent = q.choice[2].text;
 	opt4.textContent = q.choice[3].text;
+	// console.log(questionIndex);
+	if(questionIndex == 0) {
+		hideButton('validnatu');
+		// return;
+	}else if(questionIndex > 0) {
+	showButton('validnatu');
+}
 	// alert1.textContent = q.corr;
 	// alert2.textContent = q.worr;
 
-};
+}
+function prevpressed() {
+	currentQuestion--;
+	loadQuestion(currentQuestion);
+}
+function hideButton(id) {
+  // console.log(document.getElementById(id).style.visibility)
+  validnatu.style.visibility = 'hidden';
+}
+function showButton(id) {
+  // console.log(document.getElementById(id).style.visibility)
+  validnatu.style.visibility = 'visible';
+}
+function loadNext() {
 
-function loadNextQuestion () {
+	showButton('validnatu');
 	var selectedOption = document.querySelector('input[type=radio]:checked');
 	if(!selectedOption){
 		alert('Please select your answer!');
@@ -151,25 +172,23 @@ function loadNextQuestion () {
 	}
 	var answer = selectedOption.value;
 	// document.write(answer + "-" + quiz.questions[currentQuestion].answer);
-	for(var i = 0; i < quiz.questions[currentQuestion].choice[i].length;i++) {
+	// for(var i = 0; i < quiz.questions[currentQuestion].choice[i].length;i++) {
 	if(quiz.questions[currentQuestion].answer == answer){
 		score += 10;
 		// console.log(score);
-		document.write(score);
+		// document.write(score);
 		// alert1.textContent = q.corr;
-		arr.push(questions[currentQuestion],questions[currentQuestion].answer);
-		break;
+		// arr.push(questions[currentQuestion],questions[currentQuestion].answer);
+		// break;
 
 		} else {
 			// alert2.textContent = q.worr;
-			arr1.push(questions[currentQuestion],answer)
+			// arr1.push(questions[currentQuestion],answer)
 		}
-	}
+	// }
 	selectedOption.checked = false;
 	currentQuestion++;
-	if(currentQuestion == totQuestions - 1){
-		nextButton.textContent = 'Finish';
-	}
+
 	if(currentQuestion == totQuestions){
 		container.style.display = 'none';
 		resultCont.style.display = '';
@@ -191,7 +210,9 @@ function validate() {
 	var right = 0;
 	var wrong = 0;
 	if(quiz.questions[currentQuestion].answer == answer){
-		score += 10;
+		// /if(score < 20) {
+		// score += 10;
+	// }
 		// alert1.textContent = "You are right";
 		alert1.innerHTML = '<div class="alert alert-success">' + "This is Correct" + "</div>";
 		// score+=10;
